@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<title>MonkeModEngine</title>
+<link rel="stylesheet" href="style.css">
+<link rel="icon" type="image/x-icon" href="image/favicon.ico">
+<link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+</head>
+<body>
+
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="index.html">Home</a>
+        <a href="installedmods.html">Installed Mods</a>
+        <a href="findmods.html">Find Mods</a>
+        <a href="https://discord.com/invite/monkemod" target="_blank">GTMG</a>
+    </div>
+
+<div id="main">
+  <div class="header">
+    <span id="menuIcon" class="menu-icon" onclick="openNav()">&#9776;</span>
+    <div style="font-weight: bold;" class="titlehead">Installed Mods</div>
+  </div>
+
+  <!-- Container for displaying folder names -->
+  <div id="folder-text"></div>
+</div>
+
+<script>
+function openNav() {
+  document.getElementById("mySidenav").style.width = "250px";
+  document.getElementById("main").style.marginLeft = "250px";
+  document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+  document.getElementById("menuIcon").style.opacity = "0";
+}
+
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+  document.getElementById("main").style.marginLeft= "0";
+  document.body.style.backgroundColor = "white";
+  document.getElementById("menuIcon").style.opacity = "1";
+}
+
+const nameMapping = {
+    "sinai-dev-UnityExplorer": "Unity Explorer",
+    // Add more mappings here
+};
+
+async function displayFolderNames() {
+    try {
+        const response = await fetch('folderNames.txt'); // Await fetch to get the response
+        if (!response.ok) throw new Error('Failed to fetch folder names');
+        const text = await response.text(); // Await text to get the content
+        const folderNames = text.split(', ').map(name => name.trim()); // Split and trim folder names
+
+        const folderText = document.getElementById('folder-text');
+        folderText.innerHTML = ''; // Clear previous content
+
+        
+
+        folderNames.forEach(name => {
+            // Map specific folder names to user-friendly names
+            name = nameMapping[name] || name; // Use the mapping if available
+
+            const modContainer = document.createElement('div');
+            modContainer.className = 'mod-container';
+
+            // Create and append the mod name span
+            const modName = document.createElement('span');
+            modName.className = 'mod-name';
+            modName.textContent = name;
+
+            modContainer.appendChild(modName);
+            folderText.appendChild(modContainer);
+        });
+    } catch (error) {
+        console.error('Error fetching folder names:', error);
+        const folderText = document.getElementById('folder-text');
+        folderText.innerHTML = 'Failed to load folder names. Please try again later.';
+    }
+}
+
+
+
+
+// Call the function to load folder names on page load
+document.addEventListener('DOMContentLoaded', displayFolderNames);
+</script>
+
+</body>
+</html>

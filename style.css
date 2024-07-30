@@ -1,0 +1,207 @@
+body {
+    font-family: 'Inter', sans-serif;
+    font-size: 22px;
+    transition: background-color 0.2s;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+/* Ensure button styling */
+button {
+    font-size: 20px;
+    font-weight: 700;
+    text-align: center;
+    width: auto; /* Allow width to adjust to content */
+    min-width: 100px;
+    height: 45px;
+    padding: 8px;
+    border-radius: 10px;
+    border: 3px solid #9eaee0;
+    box-shadow: 0px 0px 20px -20px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    background-color: rgb(201, 201, 201);
+    transition: all 0.2s ease-in-out;
+    user-select: none;
+    margin-left: auto; /* Push button to the right */
+}
+
+/* Button hover effect */
+button:hover {
+    background-color: #F2F2F2;
+    box-shadow: 0px 0px 20px -18px rgba(0, 0, 0, 0.3);
+}
+
+/* Button active effect */
+button:active {
+    transform: scale(0.95);
+}
+
+/* Ensure mod-container styling */
+.mod-container {
+    display: flex; /* Flexbox for horizontal alignment */
+    align-items: center; /* Center items vertically */
+    padding: 10px;
+    border: 2px solid lightcoral;
+    border-radius: 15px;
+    background: #dddddd;
+    width: 600px; /* Ensure width is set */
+    height: 75px; /* Adjust height as needed */
+    margin: 0 auto 10px; /* Center horizontally and add bottom margin */
+    box-sizing: border-box;
+}
+
+/* Style for the mod name */
+.mod-name {
+    font-weight: bold;
+    margin-right: 20px; /* Add spacing to the right of the mod name */
+}
+
+/* Style for the mod author */
+.mod-author {
+    margin: 0 20px; /* Add spacing between the mod author and button */
+    font-style: italic; /* Optional: Style author text differently */
+}
+
+/* Header styling */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    position: relative;
+    top: -8px;
+}
+
+/* Centered div styling */
+.centered-div {
+    background-color: rgb(224, 224, 224);
+    width: 400px;
+    height: 225px;
+    border: 2px solid rgb(200, 200, 200); /* Slightly different border color */
+    overflow: scroll;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-top: 50px;
+}
+
+/* Centered text styling */
+.cdtex {
+    margin-top: 36px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 36px;
+    margin: 0 auto;
+}
+
+/* Menu icon styling */
+.menu-icon {
+    font-size: 30px;
+    cursor: pointer;
+    position: absolute;
+    left: 16px;
+    transition: opacity 0.2s ease;
+}
+
+/* Title head styling */
+.titlehead {
+    font-size: 48px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+/* Side navigation styling */
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+/* Side navigation links styling */
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+/* Side navigation link hover effect */
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+/* Side navigation close button styling */
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    font-size: 36px;
+    margin-right: 70px;
+}
+
+/* Custom loader styling */
+.custom-loader {
+    width: 70px;
+    height: 70px;
+    background: #ffa600;
+    border-radius: 50px;
+    mask: radial-gradient(circle 31px at 50% calc(100% + 13px),#000 95%,#0000) top 4px left 50%,
+      radial-gradient(circle 31px,#000 95%,#0000) center,
+      radial-gradient(circle 31px at 50% -13px,#000 95%,#0000) bottom 4px left 50%,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    mask-repeat: no-repeat;
+    animation: cu10 1.5s infinite;
+}
+
+/* Loader animation keyframes */
+@keyframes cu10 {
+    0% {
+      -webkit-mask-size: 0    18px,0    18px,0    18px,auto
+    }
+    16.67% {
+      -webkit-mask-size: 100% 18px,0    18px,0    18px,auto
+    }
+    33.33% {
+      -webkit-mask-size: 100% 18px,100% 18px,0    18px,auto
+    }
+    50% {
+      -webkit-mask-size: 100% 18px,100% 18px,100% 18px,auto
+    }
+    66.67% {
+      -webkit-mask-size: 0    18px,100% 18px,100% 18px,auto
+    }
+    83.33% {
+      -webkit-mask-size: 0    18px,0    18px,100% 18px,auto
+    }
+    100% {
+      -webkit-mask-size: 0    18px,0    18px,0    18px,auto
+    }
+}
+
+/* Main content area styling */
+#main {
+    transition: margin-left 0.5s;
+    padding: 16px;
+}
+
+/* Media query for small screen height */
+@media screen and (max-height: 450px) {
+    .sidenav {
+        padding-top: 15px;
+    }
+    .sidenav a {
+        font-size: 18px;
+    }
+}

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<title>MonkeModEngine</title>
+<link rel="stylesheet" href="style.css">
+<link rel="icon" type="image/x-icon" href="image/favicon.ico">
+<link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+</head>
+<body>
+
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="index.html">Home</a>
+        <a href="installedmods.html">Installed Mods</a>
+        <a href="findmods.html">Find Mods</a>
+        <a href="https://discord.com/invite/monkemod" target="_blank">GTMG</a>
+    </div>
+
+<div id="main">
+  <div class="header">
+    <span id="menuIcon" class="menu-icon" onclick="openNav()">&#9776;</span>
+    <div style="font-weight: bold;" class="titlehead">Find Mods</div>
+  </div>
+
+  <!-- Container for displaying mod names -->
+  <div id="mod-container"></div>
+</div>
+
+<script>
+  function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+    document.getElementById("main").style.marginLeft = "250px";
+    document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+    document.getElementById("menuIcon").style.opacity = "0";
+  }
+  
+  function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+    document.getElementById("main").style.marginLeft= "0";
+    document.body.style.backgroundColor = "white";
+    document.getElementById("menuIcon").style.opacity = "1";
+  }
+  
+  async function displayFolderNames() {
+      try {
+        const response = await fetch('https://raw.githubusercontent.com/aouradev/gtmod-list/main/list.json');
+    if (!response.ok) throw new Error('Failed to fetch mod data');
+    
+    const data = await response.json(); // Parse JSON data
+          
+          const modContainer = document.getElementById('mod-container');
+          modContainer.innerHTML = ''; // Clear previous content
+  
+          // Function to display mod names
+          function displayNames(data) {
+              for (const key in data) {
+                  if (data.hasOwnProperty(key)) {
+                      const modData = data[key];
+                      const name = modData.name;
+                      const author = modData.author;
+                      const dlink = modData.dlink;
+  
+                      // Create and style mod container
+                      const modElement = document.createElement('div');
+                      modElement.className = 'mod-container';
+  
+                      // Create and append the mod name
+                      const modName = document.createElement('span');
+                      modName.className = 'mod-name';
+                      modName.textContent = name;
+  
+                      // Create and append the mod author
+                      const modAuthor = document.createElement('span');
+                      modAuthor.className = 'mod-author';
+                      modAuthor.textContent = ` by ${author}`;
+  
+                      // Create and append the download button
+                      const dwnldButton = document.createElement('button');
+                      dwnldButton.className = 'Btn'; // Ensure this matches the CSS class for buttons
+                      dwnldButton.textContent = 'Get';
+  
+                      // Add click event listener to the button
+                      dwnldButton.addEventListener('click', () => {
+                          handleButtonClick(name, dlink); // Handle the button click
+                      });
+  
+                      // Append name, author, and button to the mod container
+                      modElement.appendChild(modName);
+                      modElement.appendChild(modAuthor);
+                      modElement.appendChild(dwnldButton);
+                      modContainer.appendChild(modElement);
+                  }
+              }
+          }
+  
+          // Call the function to display names
+          displayNames(data);
+  
+      } catch (error) {
+          console.error('Error fetching mod data:', error);
+          const modContainer = document.getElementById('mod-container');
+          modContainer.innerHTML = 'Failed to load mod names. Please try again later.';
+      }
+  }
+  
+  // Function to handle button click
+  async function handleButtonClick(modName, dlink) {
+      try {
+          const response = await fetch('prefGD.txt'); 
+          if (!response.ok) throw new Error('Failed to fetch prefGD.');
+          
+          const downloadPath = await response.text(); // Assuming the path is in text format
+          
+          if (!downloadPath.trim()) {
+              alert("Download path is not set.");
+              return;
+          }
+  
+          downloadFileFromURL(dlink);
+      } catch (error) {
+          console.error('Error fetching download path:', error);
+          alert("Failed to fetch download path. Please try again later.");
+      }
+  }
+  
+  // Function to download a file from a URL
+  function downloadFileFromURL(fileURL) {
+    // Create a temporary link element
+    const link = document.createElement('a');
+    
+    // Set the href attribute to the file URL
+    link.href = fileURL;
+    
+    // Set the download attribute with the suggested filename
+    link.download = fileURL.split('/').pop(); // Extract filename from URL
+    
+    // Append the link to the document body
+    document.body.appendChild(link);
+    
+    // Trigger a click on the link to start the download
+    link.click();
+    
+    // Remove the link from the document
+    document.body.removeChild(link);
+  }
+  
+  // Call the function to load mod names on page load
+  document.addEventListener('DOMContentLoaded', displayFolderNames);
+  </script>
+  
+
+</body>
+</html>

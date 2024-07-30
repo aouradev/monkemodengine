@@ -1,0 +1,33 @@
+{
+  "name": "monkemodengine",
+  "version": "1.0.0",
+  "description": "A mod manager for Gorilla Tag PC.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder"
+  },
+  "repository": "https://github.com/aouradev/monkemodengine",
+  "publish": {
+    "provider": "github",
+    "releaseType": "release"
+  },
+  "build": {
+    "appId": "net.gabora.monkemodengine",
+    "productName": "Monke Mod Engine",
+    "win": {
+      "target": "nsis"
+    },
+    "directories": {
+      "output": "dist"
+    },
+    "copyright": "All Rights Reserved"
+  },
+  "devDependencies": {
+    "electron": "^25.0.0",
+    "electron-builder": "^24.13.3"
+  },
+  "dependencies": {
+    "electron-updater": "^6.2.1"
+  }
+}
